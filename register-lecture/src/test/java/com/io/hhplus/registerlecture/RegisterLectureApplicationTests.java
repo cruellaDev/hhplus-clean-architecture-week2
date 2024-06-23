@@ -1,4 +1,4 @@
-package com.io.hhplus.tdd.registerlecture;
+package com.io.hhplus.registerlecture;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
