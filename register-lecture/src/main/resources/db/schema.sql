@@ -1,4 +1,4 @@
-CREATE TABLE "user" (
+CREATE TABLE "user_table" (
                         "id" bigint PRIMARY KEY NOT NULL auto_increment,
                         "name" varchar(100) NOT NULL,
                         "use_yn" varchar(1) NOT NULL,
@@ -6,7 +6,7 @@ CREATE TABLE "user" (
                         "modified_at" datetime NOT NULL
 );
 
-CREATE TABLE "lecture" (
+CREATE TABLE "lecture_table" (
                            "id" bigint PRIMARY KEY NOT NULL auto_increment,
                            "name" varchar(300) NOT NULL,
                            "status" varchar(50) NOT NULL,
@@ -15,7 +15,7 @@ CREATE TABLE "lecture" (
                            "modified_at" datetime NOT NULL
 );
 
-CREATE TABLE "lecture_option" (
+CREATE TABLE "lecture_option_table" (
                                   "id" bigint PRIMARY KEY NOT NULL auto_increment,
                                   "lecture_id" bigint NOT NULL,
                                   "register_begin_at" datetime NOT NULL,
@@ -27,7 +27,7 @@ CREATE TABLE "lecture_option" (
                                   "modified_at" datetime NOT NULL
 );
 
-CREATE TABLE "lecture_change_history" (
+CREATE TABLE "lecture_change_history_table" (
                                           "id" bigint PRIMARY KEY NOT NULL auto_increment,
                                           "lecture_id" bigint NOT NULL,
                                           "lecture_option_id" bigint NOT NULL,
@@ -39,7 +39,7 @@ CREATE TABLE "lecture_change_history" (
                                           "created_at" datetime NOT NULL
 );
 
-CREATE TABLE "user_lecture_register" (
+CREATE TABLE "user_lecture_register_table" (
                                          "id" bigint PRIMARY KEY NOT NULL auto_increment,
                                          "user_id" bigint NOT NULL,
                                          "lecture_id" bigint NOT NULL,
@@ -49,7 +49,7 @@ CREATE TABLE "user_lecture_register" (
                                          "modified_at" datetime NOT NULL
 );
 
-CREATE TABLE "user_lecture_register_history" (
+CREATE TABLE "user_lecture_register_history_table" (
                                                  "id" bigint PRIMARY KEY NOT NULL auto_increment,
                                                  "user_lecture_register_id" bigint NOT NULL,
                                                  "user_id" bigint NOT NULL,
@@ -60,12 +60,12 @@ CREATE TABLE "user_lecture_register_history" (
                                                  "created_at" datetime NOT NULL
 );
 
-COMMENT ON COLUMN "lecture"."status" IS 'OPEN | CLOSED';
+COMMENT ON COLUMN "lecture_table"."status" IS 'OPEN | CLOSED';
 
-COMMENT ON COLUMN "user_lecture_register_history"."type" IS 'APPLIED | CANCELLED';
+COMMENT ON COLUMN "user_lecture_register_history_table"."type" IS 'APPLIED | CANCELLED';
 
-ALTER TABLE "lecture_option" ADD FOREIGN KEY ("lecture_id") REFERENCES "lecture" ("id");
+ALTER TABLE "lecture_option_table" ADD FOREIGN KEY ("lecture_id") REFERENCES "lecture_table" ("id");
 
-ALTER TABLE "lecture_change_history" ADD FOREIGN KEY ("lecture_id") REFERENCES "lecture" ("id");
+ALTER TABLE "lecture_change_history_table" ADD FOREIGN KEY ("lecture_id") REFERENCES "lecture_table" ("id");
 
-ALTER TABLE "user_lecture_register_history" ADD FOREIGN KEY ("user_lecture_register_id") REFERENCES "user_lecture_register" ("id");
+ALTER TABLE "user_lecture_register_history_table" ADD FOREIGN KEY ("user_lecture_register_id") REFERENCES "user_lecture_register_table" ("id");

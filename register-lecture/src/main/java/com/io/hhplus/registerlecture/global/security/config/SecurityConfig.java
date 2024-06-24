@@ -7,6 +7,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 
+/**
+ * @link <a href="https://dukcode.github.io/spring/h2-console-with-spring-security/">참고URL</a>
+ */
 @EnableWebSecurity
 @Configuration
 public class SecurityConfig {
