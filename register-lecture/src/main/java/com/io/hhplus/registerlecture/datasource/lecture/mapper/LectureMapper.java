@@ -17,6 +17,8 @@ public class LectureMapper implements EntityMapper<Lecture, com.io.hhplus.regist
                 .name(lecture.getName())
                 .status(lecture.getStatus())
                 .useYn(lecture.getUseYn())
+                .createdAt(lecture.getAuditSection().getCreatedAt())
+                .modifiedAt(lecture.getAuditSection().getModifiedAt())
                 .build();
     }
 

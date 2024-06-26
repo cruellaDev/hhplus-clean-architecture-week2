@@ -16,6 +16,8 @@ public class UserMapper implements EntityMapper<User, com.io.hhplus.registerlect
                 .id(user.getId())
                 .name(user.getName())
                 .useYn(user.getUseYn())
+                .createdAt(user.getAuditSection().getCreatedAt())
+                .modifiedAt(user.getAuditSection().getModifiedAt())
                 .build();
     }
 

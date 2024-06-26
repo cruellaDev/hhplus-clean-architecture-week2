@@ -14,8 +14,14 @@ import java.util.Date;
 public class UserLectureRegister {
     private Long id;
     private Long userId;
+    private String userName;
     private Long lectureId;
+    private String lectureName;
     private Long lectureOptionId;
+    private Date registerBeginAt;
+    private Date registerEndAt;
+    private Date lectureDatetime;
+    private Integer capacityLimit;
     private String useYn;
     private Date createdAt;
     private Date modifiedAt;

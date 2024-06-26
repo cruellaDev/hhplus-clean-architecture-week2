@@ -21,6 +21,8 @@ public class LectureOptionMapper implements EntityMapper<LectureOption, com.io.h
                 .lectureDatetime(lectureOption.getLectureDatetime())
                 .capacityLimit(lectureOption.getCapacityLimit())
                 .useYn(lectureOption.getUseYn())
+                .createdAt(lectureOption.getAuditSection().getCreatedAt())
+                .modifiedAt(lectureOption.getAuditSection().getModifiedAt())
                 .build();
     }
 

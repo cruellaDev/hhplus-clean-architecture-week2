@@ -16,9 +16,16 @@ public class UserLectureRegisterMapper implements EntityMapper<UserLectureRegist
         return UserLectureRegister.builder()
                 .id(userLectureRegister.getId())
                 .userId(userLectureRegister.getUser().getId())
+                .userName(userLectureRegister.getUser().getName())
                 .lectureId(userLectureRegister.getLecture().getId())
+                .lectureName(userLectureRegister.getLecture().getName())
                 .lectureOptionId(userLectureRegister.getLectureOption().getId())
+                .registerBeginAt(userLectureRegister.getLectureOption().getRegisterBeginAt())
+                .registerEndAt(userLectureRegister.getLectureOption().getRegisterEndAt())
+                .capacityLimit(userLectureRegister.getLectureOption().getCapacityLimit())
                 .useYn(userLectureRegister.getUseYn())
+                .createdAt(userLectureRegister.getAuditSection().getCreatedAt())
+                .modifiedAt(userLectureRegister.getAuditSection().getModifiedAt())
                 .build();
     }
 

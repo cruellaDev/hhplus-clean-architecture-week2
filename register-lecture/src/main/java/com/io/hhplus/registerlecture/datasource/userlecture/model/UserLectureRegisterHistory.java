@@ -23,26 +23,41 @@ public class UserLectureRegisterHistory implements Auditable {
     @Column(name = "id", unique = true, nullable = false, updatable = false)
     private Long id;
 
+    /**
+     * 로그성이기 때문에 join 걸지 않음.
+     */
     @Column(name = "user_lecture_register_id", nullable = false)
     private Long userLectureRegisterId;
 
+    /**
+     * 로그성이기 때문에 join 걸지 않음.
+     */
     @Column(name = "user_id", nullable = false)
     private Long userId;
 
+    /**
+     * 로그성이기 때문에 join 걸지 않음.
+     */
     @Column(name = "lecture_id", nullable = false)
     private Long lectureId;
 
+    /**
+     * 로그성이기 때문에 join 걸지 않음.
+     */
     @Column(name = "lecture_option_id", nullable = false)
     private Long lectureOptionId;
 
+    /**
+     * LectureOption 에서 변경될 수 있고 특강 신청 내역에서 가장 중요한 항목이기에 비정규화함
+     */
     @Column(name = "lecture_datetime", nullable = false)
     private Date lectureDatetime;
 
+    /**
+     * 신청 / 취소 기록.
+     */
     @Column(name = "type", nullable = false, length = 50)
     private String type;
-
-    @Column(name = "use_yn", nullable = false, length = 1)
-    private String useYn;
 
     @Builder.Default
     @Embedded

@@ -30,13 +30,15 @@ CREATE TABLE "lecture_option_table" (
 CREATE TABLE "lecture_change_history_table" (
                                           "id" bigint PRIMARY KEY NOT NULL auto_increment,
                                           "lecture_id" bigint NOT NULL,
+                                          "lecture_name" varchar(300) NOT NULL,
                                           "lecture_option_id" bigint NOT NULL,
                                           "status" varchar(50) NOT NULL,
                                           "register_begin_at" datetime NOT NULL,
                                           "register_end_at" datetime NOT NULL,
                                           "lecture_datetime" datetime NOT NULL,
                                           "capacity_limit" int NOT NULL,
-                                          "created_at" datetime NOT NULL
+                                          "created_at" datetime NOT NULL,
+                                          "modified_at" datetime NOT NULL
 );
 
 CREATE TABLE "user_lecture_register_table" (
@@ -57,7 +59,8 @@ CREATE TABLE "user_lecture_register_history_table" (
                                                  "lecture_option_id" bigint NOT NULL,
                                                  "lecture_datetime" datetime NOT NULL,
                                                  "type" varchar(50) NOT NULL,
-                                                 "created_at" datetime NOT NULL
+                                                 "created_at" datetime NOT NULL,
+                                                 "modified_at" datetime NOT NULL
 );
 
 COMMENT ON COLUMN "lecture_table"."status" IS 'OPEN | CLOSED';

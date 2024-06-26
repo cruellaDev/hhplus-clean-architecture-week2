@@ -6,8 +6,6 @@ import com.io.hhplus.registerlecture.global.audit.entity.Auditable;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.Date;
-
 @Getter
 @Setter
 @ToString
