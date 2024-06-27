@@ -1,6 +1,6 @@
 package com.io.hhplus.registerlecture.business.utils;
 
-import com.io.hhplus.registerlecture.business.user.model.User;
+import com.io.hhplus.registerlecture.business.user.dto.UserDto;
 import com.io.hhplus.registerlecture.business.user.repository.UserRepository;
 import com.io.hhplus.registerlecture.global.processor.ProcessCode;
 import com.io.hhplus.registerlecture.global.processor.ProcessResultDto;
@@ -38,12 +38,12 @@ class UserUtilsTest {
     void test_getOneByPrimaryId_when_data_is_empty() {
         // given
         long id = 3;
-        User expectedUser = userUtils.empty();
-        given(userRepository.findById(anyLong())).willReturn(Optional.of(expectedUser));
+        UserDto expectedUserDto = userUtils.empty();
+        given(userRepository.findById(anyLong())).willReturn(Optional.of(expectedUserDto));
         // when
-        User realUser = userUtils.getOneByPrimaryId(id);
+        UserDto realUserDto = userUtils.getOneByPrimaryId(id);
         // then
-        assertEquals(-1, realUser.getId());
+        assertEquals(-1, realUserDto.getId());
     }
 
     /**
@@ -52,10 +52,10 @@ class UserUtilsTest {
     @Test
     void meets_validateBeforePersist_when_user_is_null_then_return_EMPTY() {
         // given
-        User user = null;
+        UserDto userDto = null;
         ProcessResultDto expectedProcessResult = CommonUtils.createProcessResult(ProcessCode.EMPTY, "입력할 데이터가 없습니다.");
         // when
-        ProcessResultDto realProcessResult = userUtils.validateBeforePersist(user);
+        ProcessResultDto realProcessResult = userUtils.validateBeforePersist(userDto);
         // then
         assertEquals(expectedProcessResult.getProcessCode(), realProcessResult.getProcessCode());
         assertEquals(expectedProcessResult.getDetailMessage(), realProcessResult.getDetailMessage());
@@ -67,13 +67,13 @@ class UserUtilsTest {
     @Test
     void meets_validateBeforePersist_when_id_is_negative() {
         // given
-        User user = User.builder()
+        UserDto userDto = UserDto.builder()
                 .id(-4L)
                 .useYn("Y")
                 .build();
         // when
         ProcessResultDto expectedProcessResult = CommonUtils.createProcessResult(ProcessCode.ILLEGAL_ARGUMENTS, "사용자의 ID를 확인해 주십시오,사용자의 이름을 입력하십시오");
-        ProcessResultDto realProcessResult = userUtils.validateBeforePersist(user);
+        ProcessResultDto realProcessResult = userUtils.validateBeforePersist(userDto);
         // then
         assertEquals(expectedProcessResult.getProcessCode(), realProcessResult.getProcessCode());
         assertEquals(expectedProcessResult.getDetailMessage(), realProcessResult.getDetailMessage());
@@ -85,11 +85,11 @@ class UserUtilsTest {
     @Test
     void meets_validateBeforePersist_when_userName_is_null_or_blank_then_return_ILLEGAL_ARGUMENTS() {
         // given
-        User user1 = User.builder()
+        UserDto userDto1 = UserDto.builder()
                 .id(null)
                 .useYn("Y")
                 .build();
-        User user2 = User.builder()
+        UserDto userDto2 = UserDto.builder()
                 .id(null)
                 .name("")
                 .useYn("Y")
@@ -97,8 +97,8 @@ class UserUtilsTest {
 
         ProcessResultDto expectedProcessResult = CommonUtils.createProcessResult(ProcessCode.ILLEGAL_ARGUMENTS, "사용자의 이름을 입력하십시오");
         // when
-        ProcessResultDto realProcessResult1 = userUtils.validateBeforePersist(user1);
-        ProcessResultDto realProcessResult2 = userUtils.validateBeforePersist(user2);
+        ProcessResultDto realProcessResult1 = userUtils.validateBeforePersist(userDto1);
+        ProcessResultDto realProcessResult2 = userUtils.validateBeforePersist(userDto2);
 
         // then
         assertEquals(expectedProcessResult.getProcessCode(), realProcessResult1.getProcessCode());
@@ -113,7 +113,7 @@ class UserUtilsTest {
     @Test
     void meets_validateBeforePersist_when_data_is_valid_then_return_VALID() {
         // given
-        User user1 = User.builder()
+        UserDto userDto1 = UserDto.builder()
                 .id(null)
                 .name("사용자명")
                 .useYn("Y")
@@ -121,7 +121,7 @@ class UserUtilsTest {
 
         ProcessResultDto expectedProcessResult = CommonUtils.createProcessResult(ProcessCode.VALID, null);
         // when
-        ProcessResultDto realProcessResult1 = userUtils.validateBeforePersist(user1);
+        ProcessResultDto realProcessResult1 = userUtils.validateBeforePersist(userDto1);
         System.out.println(realProcessResult1);
         // then
         assertEquals(expectedProcessResult.getProcessCode(), realProcessResult1.getProcessCode());
@@ -133,11 +133,11 @@ class UserUtilsTest {
     @Test
     void meets_validateBeforePersist_when_useYn_is_null_or_blank_then_return_ILLEGAL_ARGUMENTS() {
         // given
-        User user1 = User.builder()
+        UserDto userDto1 = UserDto.builder()
                 .id(null)
                 .name("사용자명")
                 .build();
-        User user2 = User.builder()
+        UserDto userDto2 = UserDto.builder()
                 .id(null)
                 .name("사용자명1")
                 .useYn("")
@@ -147,8 +147,8 @@ class UserUtilsTest {
 //        ProcessResultDto expectedProcessResult = CommonUtils.createProcessResult(ProcessCode.ILLEGAL_ARGUMENTS, "사용자의 사용여부를 입력하십시오");
         ProcessResultDto expectedProcessResult = CommonUtils.createProcessResult(ProcessCode.ILLEGAL_ARGUMENTS, "사용자의 사용여부를 입력하십시오,사용자의 사용여부 값이 잘못되었습니다.");
         // when
-        ProcessResultDto realProcessResult1 = userUtils.validateBeforePersist(user1);
-        ProcessResultDto realProcessResult2 = userUtils.validateBeforePersist(user2);
+        ProcessResultDto realProcessResult1 = userUtils.validateBeforePersist(userDto1);
+        ProcessResultDto realProcessResult2 = userUtils.validateBeforePersist(userDto2);
 
         // then
         assertEquals(expectedProcessResult.getProcessCode(), realProcessResult1.getProcessCode());
@@ -163,12 +163,12 @@ class UserUtilsTest {
     @Test
     void meets_validateBeforePersist_when_useYn_is_not_Y_neither_N_then_return_ILLEGAL_ARGUMENTS() {
         // given
-        User user1 = User.builder()
+        UserDto userDto1 = UserDto.builder()
                 .id(null)
                 .name("사용자명")
                 .useYn("가나다라")
                 .build();
-        User user2 = User.builder()
+        UserDto userDto2 = UserDto.builder()
                 .id(null)
                 .name("사용자명1")
                 .useYn("NefeNNN")
@@ -176,8 +176,8 @@ class UserUtilsTest {
 
         ProcessResultDto expectedProcessResult = CommonUtils.createProcessResult(ProcessCode.ILLEGAL_ARGUMENTS, "사용자의 사용여부 값이 잘못되었습니다.");
         // when
-        ProcessResultDto realProcessResult1 = userUtils.validateBeforePersist(user1);
-        ProcessResultDto realProcessResult2 = userUtils.validateBeforePersist(user2);
+        ProcessResultDto realProcessResult1 = userUtils.validateBeforePersist(userDto1);
+        ProcessResultDto realProcessResult2 = userUtils.validateBeforePersist(userDto2);
 
         // then
         assertEquals(expectedProcessResult.getProcessCode(), realProcessResult1.getProcessCode());
@@ -192,7 +192,7 @@ class UserUtilsTest {
     @Test
     void meets_validateBeforePersist_when_has_multiple_detailMessage_return_all() {
         // given
-        User user1 = User.builder()
+        UserDto userDto1 = UserDto.builder()
                 .id(-1L)
                 .name("")
                 .useYn("")
@@ -203,7 +203,7 @@ class UserUtilsTest {
                 "사용자의 ID를 확인해 주십시오,사용자의 이름을 입력하십시오,사용자의 사용여부를 입력하십시오,사용자의 사용여부 값이 잘못되었습니다."
         );
         // when
-        ProcessResultDto realProcessResult = userUtils.validateBeforePersist(user1);
+        ProcessResultDto realProcessResult = userUtils.validateBeforePersist(userDto1);
         // then
         assertEquals(expectedProcessResult.getProcessCode(), realProcessResult.getProcessCode());
         assertEquals(expectedProcessResult.getDetailMessage(), realProcessResult.getDetailMessage());
@@ -215,7 +215,7 @@ class UserUtilsTest {
     @Test
     void meets_validateBeforePersist_when_userId_exists_and_user_not_exists_then_return_ILLEGAL_STATE() {
         // given
-        User user1 = User.builder()
+        UserDto userDto1 = UserDto.builder()
                 .id(9999L)
                 .name("사용자명")
                 .useYn("Y")
@@ -228,7 +228,7 @@ class UserUtilsTest {
                 "존재하지 않는 사용자 입니다."
         );
         // when
-        ProcessResultDto realProcessResult = userUtils.validateBeforePersist(user1);
+        ProcessResultDto realProcessResult = userUtils.validateBeforePersist(userDto1);
         // then
         assertEquals(expectedProcessResult.getProcessCode(), realProcessResult.getProcessCode());
         assertEquals(expectedProcessResult.getDetailMessage(), realProcessResult.getDetailMessage());
@@ -240,19 +240,19 @@ class UserUtilsTest {
     @Test
     void test_write() {
         // given
-        User user = User.builder()
+        UserDto userDto = UserDto.builder()
                 .id(1L)
                 .name("사용자1")
                 .useYn("Y")
                 .build();
-        doReturn(user).when(userRepository).save(any(User.class));
+        doReturn(userDto).when(userRepository).save(any(UserDto.class));
         // when
-        User savedUser = userUtils.write(user);
+        UserDto savedUserDto = userUtils.write(userDto);
         // then
-        assertEquals(user.getId(), savedUser.getId());
-        assertEquals(user.getName(), savedUser.getName());
-        assertEquals(user.getUseYn(), savedUser.getUseYn());
-        assertNotNull(savedUser.getId());
+        assertEquals(userDto.getId(), savedUserDto.getId());
+        assertEquals(userDto.getName(), savedUserDto.getName());
+        assertEquals(userDto.getUseYn(), savedUserDto.getUseYn());
+        assertNotNull(savedUserDto.getId());
     }
 
     /**
@@ -261,15 +261,15 @@ class UserUtilsTest {
     @Test
     void test_write_when_succeeded_then_processResultCode_SUCCESS() {
         // given
-        User user = User.builder()
+        UserDto userDto = UserDto.builder()
                 .id(1L)
                 .name("사용자1")
                 .useYn("Y")
                 .build();
-        doReturn(user).when(userRepository).save(any(User.class));
+        doReturn(userDto).when(userRepository).save(any(UserDto.class));
         // when
-        User savedUser = userUtils.write(user);
-        ProcessResultDto processResultDto = userUtils.validateAfterPersist(savedUser);
+        UserDto savedUserDto = userUtils.write(userDto);
+        ProcessResultDto processResultDto = userUtils.validateAfterPersist(savedUserDto);
         // then
         assertEquals(ProcessCode.SUCCESS, processResultDto.getProcessCode());
     }
@@ -308,15 +308,15 @@ class UserUtilsTest {
     @Test
     void meets_validateAvailableDataByPrimaryId_when_user_is_not_available_then_return_ILLEGAL_STATE() {
         long id = 1;
-        User user = User.builder()
+        UserDto userDto = UserDto.builder()
                 .id(id)
                 .name("사용자1")
                 .useYn("N")
                 .build();
-        doReturn(user).when(userRepository).save(any(User.class));
+        doReturn(userDto).when(userRepository).save(any(UserDto.class));
         // when
-        User savedUser = userUtils.write(user);
-        ProcessResultDto processResultDto = userUtils.validateAvailableDataByPrimaryId(savedUser.getId());
+        UserDto savedUserDto = userUtils.write(userDto);
+        ProcessResultDto processResultDto = userUtils.validateAvailableDataByPrimaryId(savedUserDto.getId());
         // then
         assertEquals(ProcessCode.ILLEGAL_STATE, processResultDto.getProcessCode());
         assertEquals("존재하지 않는 사용자입니다.", processResultDto.getDetailMessage());
@@ -328,7 +328,7 @@ class UserUtilsTest {
     @Test
     void meets_validateAvailableDataByPrimaryId_when_user_is_not_found_then_return_ILLEGAL_STATE() {
         // given
-        Optional<User> optionalUser = Optional.of(User.builder().id(-1L).build());
+        Optional<UserDto> optionalUser = Optional.of(UserDto.builder().id(-1L).build());
         long id = 99999;
 
         given(userRepository.findById(anyLong())).willReturn(optionalUser);
@@ -346,15 +346,15 @@ class UserUtilsTest {
     @Test
     void meets_validateAvailableDataByPrimaryId_when_data_is_available_then_return_VALID() {
         long id = 1;
-        User user = User.builder()
+        UserDto userDto = UserDto.builder()
                 .id(id)
                 .name("사용자1")
                 .useYn("Y")
                 .build();
-        doReturn(user).when(userRepository).save(any(User.class));
-        given(userRepository.findById(anyLong())).willReturn(Optional.of(user));
+        doReturn(userDto).when(userRepository).save(any(UserDto.class));
+        given(userRepository.findById(anyLong())).willReturn(Optional.of(userDto));
         // when
-        userUtils.write(user);
+        userUtils.write(userDto);
         ProcessResultDto processResultDto = userUtils.validateAvailableDataByPrimaryId(id);
         // then
         assertEquals(ProcessCode.VALID, processResultDto.getProcessCode());

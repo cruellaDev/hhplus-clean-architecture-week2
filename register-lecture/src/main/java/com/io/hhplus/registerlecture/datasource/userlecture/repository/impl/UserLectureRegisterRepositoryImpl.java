@@ -1,6 +1,6 @@
 package com.io.hhplus.registerlecture.datasource.userlecture.repository.impl;
 
-import com.io.hhplus.registerlecture.business.userlecture.model.UserLectureRegister;
+import com.io.hhplus.registerlecture.business.userlecture.dto.UserLectureRegisterDto;
 import com.io.hhplus.registerlecture.business.userlecture.repository.UserLectureRegisterRepository;
 import com.io.hhplus.registerlecture.datasource.userlecture.mapper.UserLectureRegisterMapper;
 import com.io.hhplus.registerlecture.datasource.userlecture.repository.UserLectureRegisterJpaRepository;
@@ -18,7 +18,7 @@ public class UserLectureRegisterRepositoryImpl implements UserLectureRegisterRep
     private final UserLectureRegisterMapper userLectureRegisterMapper;
 
     @Override
-    public Optional<UserLectureRegister> findByUserIdAndLectureIdAndLectureOptionId(long userId, long lectureId, long lectureOptionId) {
+    public Optional<UserLectureRegisterDto> findByUserIdAndLectureIdAndLectureOptionId(long userId, long lectureId, long lectureOptionId) {
         return userLectureRegisterMapper.toDto(userLectureRegisterJpaRepository.findByUserIdAndLectureIdAndLectureOptionId(userId, lectureId, lectureOptionId));
     }
 
@@ -33,17 +33,17 @@ public class UserLectureRegisterRepositoryImpl implements UserLectureRegisterRep
     }
 
     @Override
-    public UserLectureRegister save(UserLectureRegister userLectureRegister) {
-        return userLectureRegisterMapper.toDto(userLectureRegisterJpaRepository.save(userLectureRegisterMapper.toEntity(userLectureRegister)));
+    public UserLectureRegisterDto save(UserLectureRegisterDto userLectureRegisterDto) {
+        return userLectureRegisterMapper.toDto(userLectureRegisterJpaRepository.save(userLectureRegisterMapper.toEntity(userLectureRegisterDto)));
     }
 
     @Override
-    public Optional<UserLectureRegister> findById(long userLectureRegisterId) {
+    public Optional<UserLectureRegisterDto> findById(long userLectureRegisterId) {
         return userLectureRegisterMapper.toDto(userLectureRegisterJpaRepository.findById(userLectureRegisterId));
     }
 
     @Override
-    public List<UserLectureRegister> findAllByUserIdAndUseYn(long userId, String useYn) {
+    public List<UserLectureRegisterDto> findAllByUserIdAndUseYn(long userId, String useYn) {
         return userLectureRegisterMapper.toDto(userLectureRegisterJpaRepository.findAllByUserIdAndUseYn(userId, useYn));
     }
 }

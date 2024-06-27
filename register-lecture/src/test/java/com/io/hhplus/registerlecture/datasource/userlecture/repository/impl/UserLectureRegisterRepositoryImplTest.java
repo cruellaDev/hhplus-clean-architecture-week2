@@ -1,5 +1,6 @@
 package com.io.hhplus.registerlecture.datasource.userlecture.repository.impl;
 
+import com.io.hhplus.registerlecture.business.userlecture.dto.UserLectureRegisterDto;
 import com.io.hhplus.registerlecture.datasource.lecture.model.Lecture;
 import com.io.hhplus.registerlecture.datasource.lecture.model.LectureOption;
 import com.io.hhplus.registerlecture.datasource.lecture.repository.LectureJpaRepository;
@@ -84,12 +85,12 @@ class UserLectureRegisterRepositoryImplTest {
                 .build();
         UserLectureRegister savedUserLectureRegister = userLectureRegisterJpaRepository.save(userLectureRegister);
         Optional<UserLectureRegister> selectUserLectureRegister = userLectureRegisterJpaRepository.findByUserIdAndLectureIdAndLectureOptionId(savedUser.getId(), savedLecture.getId(), savedLectureOption.getId());
-        com.io.hhplus.registerlecture.business.userlecture.model.UserLectureRegister savedUserLectureRegisterDto = userLectureRegisterMapper.toDto(selectUserLectureRegister.get());
+        UserLectureRegisterDto savedUserLectureRegisterDtoDto = userLectureRegisterMapper.toDto(selectUserLectureRegister.get());
         long userLectureRegisterCount = userLectureRegisterJpaRepository.countByUserIdAndLectureIdAndLectureOptionIdAndUseYn(savedUser.getId(), savedLecture.getId(), savedLectureOption.getId(), "Y");
         long lectureRegisterCount = userLectureRegisterJpaRepository.countByLectureIdAndLectureOptionIdAndUseYn(savedLecture.getId(), savedLectureOption.getId(), "Y");
-        assertEquals(savedUserLectureRegister.getId(), savedUserLectureRegisterDto.getId());
-        assertNotNull(savedUserLectureRegisterDto.getLectureName());
-        assertNotNull(savedUserLectureRegisterDto.getUserName());
+        assertEquals(savedUserLectureRegister.getId(), savedUserLectureRegisterDtoDto.getId());
+        assertNotNull(savedUserLectureRegisterDtoDto.getLectureName());
+        assertNotNull(savedUserLectureRegisterDtoDto.getUserName());
         assertEquals(1, userLectureRegisterCount);
         assertEquals(1, lectureRegisterCount);
     }

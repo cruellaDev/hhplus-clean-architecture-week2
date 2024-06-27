@@ -1,6 +1,6 @@
 package com.io.hhplus.registerlecture.datasource.lecture.repository.impl;
 
-import com.io.hhplus.registerlecture.business.lecture.model.LectureOption;
+import com.io.hhplus.registerlecture.business.lecture.dto.LectureOptionDto;
 import com.io.hhplus.registerlecture.business.lecture.repository.LectureOptionRepository;
 import com.io.hhplus.registerlecture.datasource.lecture.mapper.LectureOptionMapper;
 import com.io.hhplus.registerlecture.datasource.lecture.repository.LectureOptionJpaRepository;
@@ -17,12 +17,12 @@ public class LectureOptionRepositoryImpl implements LectureOptionRepository {
     private final LectureOptionMapper lectureOptionMapper;
 
     @Override
-    public Optional<LectureOption> findByIdAndLectureId(long lectureOptionId, long lectureId) {
+    public Optional<LectureOptionDto> findByIdAndLectureId(long lectureOptionId, long lectureId) {
         return lectureOptionMapper.toDto(lectureOptionJpaRepository.findByIdAndLectureId(lectureOptionId, lectureId));
     }
 
     @Override
-    public LectureOption save(LectureOption lectureOption) {
-        return lectureOptionMapper.toDto(lectureOptionJpaRepository.save(lectureOptionMapper.toEntity(lectureOption)));
+    public LectureOptionDto save(LectureOptionDto lectureOptionDto) {
+        return lectureOptionMapper.toDto(lectureOptionJpaRepository.save(lectureOptionMapper.toEntity(lectureOptionDto)));
     }
 }

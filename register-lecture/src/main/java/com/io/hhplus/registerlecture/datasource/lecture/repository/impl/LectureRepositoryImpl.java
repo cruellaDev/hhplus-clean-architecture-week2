@@ -1,6 +1,6 @@
 package com.io.hhplus.registerlecture.datasource.lecture.repository.impl;
 
-import com.io.hhplus.registerlecture.business.lecture.model.Lecture;
+import com.io.hhplus.registerlecture.business.lecture.dto.LectureDto;
 import com.io.hhplus.registerlecture.business.lecture.repository.LectureRepository;
 import com.io.hhplus.registerlecture.datasource.lecture.mapper.LectureMapper;
 import com.io.hhplus.registerlecture.datasource.lecture.repository.LectureJpaRepository;
@@ -17,12 +17,12 @@ public class LectureRepositoryImpl implements LectureRepository {
     private final LectureMapper lectureMapper;
 
     @Override
-    public Optional<Lecture> findById(long lectureId) {
+    public Optional<LectureDto> findById(long lectureId) {
         return lectureMapper.toDto(lectureJpaRepository.findById(lectureId));
     }
 
     @Override
-    public Lecture save(Lecture lecture) {
-        return lectureMapper.toDto(lectureJpaRepository.save(lectureMapper.toEntity(lecture)));
+    public LectureDto save(LectureDto lectureDto) {
+        return lectureMapper.toDto(lectureJpaRepository.save(lectureMapper.toEntity(lectureDto)));
     }
 }

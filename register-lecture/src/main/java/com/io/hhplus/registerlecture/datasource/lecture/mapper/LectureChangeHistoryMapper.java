@@ -1,7 +1,8 @@
 package com.io.hhplus.registerlecture.datasource.lecture.mapper;
 
-import com.io.hhplus.registerlecture.business.lecture.model.LectureChangeHistory;
+import com.io.hhplus.registerlecture.business.lecture.dto.LectureChangeHistoryDto;
 import com.io.hhplus.registerlecture.business.lecture.model.LectureStatus;
+import com.io.hhplus.registerlecture.datasource.lecture.model.LectureChangeHistory;
 import com.io.hhplus.registerlecture.global.mapper.EntityMapper;
 import org.springframework.stereotype.Component;
 
@@ -10,10 +11,10 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
-public class LectureChangeHistoryMapper implements EntityMapper<LectureChangeHistory, com.io.hhplus.registerlecture.datasource.lecture.model.LectureChangeHistory> {
+public class LectureChangeHistoryMapper implements EntityMapper<LectureChangeHistoryDto, LectureChangeHistory> {
     @Override
-    public LectureChangeHistory toDto(com.io.hhplus.registerlecture.datasource.lecture.model.LectureChangeHistory lectureChangeHistory) {
-        return LectureChangeHistory.builder()
+    public LectureChangeHistoryDto toDto(LectureChangeHistory lectureChangeHistory) {
+        return LectureChangeHistoryDto.builder()
                 .id(lectureChangeHistory.getId())
                 .lectureId(lectureChangeHistory.getLectureId())
                 .lectureName(lectureChangeHistory.getLectureName())
@@ -29,32 +30,32 @@ public class LectureChangeHistoryMapper implements EntityMapper<LectureChangeHis
     }
 
     @Override
-    public com.io.hhplus.registerlecture.datasource.lecture.model.LectureChangeHistory toEntity(LectureChangeHistory lectureChangeHistory) {
-        return com.io.hhplus.registerlecture.datasource.lecture.model.LectureChangeHistory.builder()
-                .id(lectureChangeHistory.getId())
-                .lectureId(lectureChangeHistory.getLectureId())
-                .lectureName(lectureChangeHistory.getLectureName())
-                .lectureOptionId(lectureChangeHistory.getLectureOptionId())
-                .status(lectureChangeHistory.getStatus().name())
-                .registerBeginAt(lectureChangeHistory.getRegisterBeginAt())
-                .registerEndAt(lectureChangeHistory.getRegisterEndAt())
-                .lectureDatetime(lectureChangeHistory.getLectureDatetime())
-                .capacityLimit(lectureChangeHistory.getCapacityLimit())
+    public LectureChangeHistory toEntity(LectureChangeHistoryDto lectureChangeHistoryDto) {
+        return LectureChangeHistory.builder()
+                .id(lectureChangeHistoryDto.getId())
+                .lectureId(lectureChangeHistoryDto.getLectureId())
+                .lectureName(lectureChangeHistoryDto.getLectureName())
+                .lectureOptionId(lectureChangeHistoryDto.getLectureOptionId())
+                .status(lectureChangeHistoryDto.getStatus().name())
+                .registerBeginAt(lectureChangeHistoryDto.getRegisterBeginAt())
+                .registerEndAt(lectureChangeHistoryDto.getRegisterEndAt())
+                .lectureDatetime(lectureChangeHistoryDto.getLectureDatetime())
+                .capacityLimit(lectureChangeHistoryDto.getCapacityLimit())
                 .build();
     }
 
     @Override
-    public List<LectureChangeHistory> toDto(List<com.io.hhplus.registerlecture.datasource.lecture.model.LectureChangeHistory> lectureChangeHistories) {
+    public List<LectureChangeHistoryDto> toDto(List<LectureChangeHistory> lectureChangeHistories) {
         return lectureChangeHistories.stream().map(this::toDto).collect(Collectors.toList());
     }
 
     @Override
-    public List<com.io.hhplus.registerlecture.datasource.lecture.model.LectureChangeHistory> toEntity(List<LectureChangeHistory> lectureChangeHistories) {
+    public List<LectureChangeHistory> toEntity(List<LectureChangeHistoryDto> lectureChangeHistories) {
         return lectureChangeHistories.stream().map(this::toEntity).collect(Collectors.toList());
     }
 
     @Override
-    public Optional<LectureChangeHistory> toDto(Optional<com.io.hhplus.registerlecture.datasource.lecture.model.LectureChangeHistory> lectureChangeHistory) {
+    public Optional<LectureChangeHistoryDto> toDto(Optional<LectureChangeHistory> lectureChangeHistory) {
         if (lectureChangeHistory.isEmpty()) {
             return Optional.empty();
         }
@@ -62,7 +63,7 @@ public class LectureChangeHistoryMapper implements EntityMapper<LectureChangeHis
     }
 
     @Override
-    public Optional<com.io.hhplus.registerlecture.datasource.lecture.model.LectureChangeHistory> toEntity(Optional<LectureChangeHistory> lectureChangeHistory) {
+    public Optional<LectureChangeHistory> toEntity(Optional<LectureChangeHistoryDto> lectureChangeHistory) {
         if (lectureChangeHistory.isEmpty()) {
             return Optional.empty();
         }

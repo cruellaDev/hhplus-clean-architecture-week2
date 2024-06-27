@@ -1,12 +1,12 @@
 package com.io.hhplus.registerlecture.business.lecture.repository;
 
-import com.io.hhplus.registerlecture.business.lecture.model.Lecture;
+import com.io.hhplus.registerlecture.business.lecture.dto.LectureDto;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
 @Repository
 public interface LectureRepository {
-    Optional<Lecture> findById(long lectureId);
-    Lecture save(Lecture lecture);
+    Optional<LectureDto> findById(long lectureId);
+    LectureDto save(LectureDto lectureDto);
 }

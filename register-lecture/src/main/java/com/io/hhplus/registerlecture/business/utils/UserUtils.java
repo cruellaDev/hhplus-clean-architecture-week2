@@ -1,6 +1,6 @@
 package com.io.hhplus.registerlecture.business.utils;
 
-import com.io.hhplus.registerlecture.business.user.model.User;
+import com.io.hhplus.registerlecture.business.user.dto.UserDto;
 import com.io.hhplus.registerlecture.business.user.repository.UserRepository;
 import com.io.hhplus.registerlecture.global.processor.ProcessCode;
 import com.io.hhplus.registerlecture.global.processor.ProcessResultDto;
@@ -16,7 +16,7 @@ import java.util.StringJoiner;
 
 @Component
 @RequiredArgsConstructor
-public class UserUtils implements Reader<User>, Processor<User>, Writer<User, User> {
+public class UserUtils implements Reader<UserDto>, Processor<UserDto>, Writer<UserDto, UserDto> {
 
     private final UserRepository userRepository;
 
@@ -35,10 +35,10 @@ public class UserUtils implements Reader<User>, Processor<User>, Writer<User, Us
         }
 
         // read data
-        User user = this.getOneByPrimaryId(primaryId);
+        UserDto userDto = this.getOneByPrimaryId(primaryId);
 
         // validate if available data exists
-        if (CommonUtils.isNotFoundData(user.getId()) || !CommonUtils.isUsable(user.getUseYn())) {
+        if (CommonUtils.isNotFoundData(userDto.getId()) || !CommonUtils.isUsable(userDto.getUseYn())) {
             detailMessage = "존재하지 않는 사용자입니다.";
             return CommonUtils.createProcessResult(ProcessCode.ILLEGAL_STATE, detailMessage);
         }
@@ -47,32 +47,32 @@ public class UserUtils implements Reader<User>, Processor<User>, Writer<User, Us
     }
 
     @Override
-    public ProcessResultDto validateBeforePersist(User user) {
+    public ProcessResultDto validateBeforePersist(UserDto userDto) {
         // if arguments empty
-        if (CommonUtils.isEmpty(user)) {
+        if (CommonUtils.isEmpty(userDto)) {
             return CommonUtils.createProcessResult(ProcessCode.EMPTY, "입력할 데이터가 없습니다.");
         }
 
         // check available if positive id exists
-         if (CommonUtils.isPositiveLong(user.getId())) {
-             User existsUser = this.getOneByPrimaryId(user.getId());
-             if (CommonUtils.isNotFoundData(existsUser.getId())) {
+         if (CommonUtils.isPositiveLong(userDto.getId())) {
+             UserDto existsUserDto = this.getOneByPrimaryId(userDto.getId());
+             if (CommonUtils.isNotFoundData(existsUserDto.getId())) {
                  return CommonUtils.createProcessResult(ProcessCode.ILLEGAL_STATE, "존재하지 않는 사용자 입니다.");
              }
          }
 
         StringJoiner detailMessage = new StringJoiner(",");
         // validate arguments in detail
-         if (!CommonUtils.isEmpty(user.getId()) && !CommonUtils.isPositiveLong(user.getId())) {
+         if (!CommonUtils.isEmpty(userDto.getId()) && !CommonUtils.isPositiveLong(userDto.getId())) {
              detailMessage.add("사용자의 ID를 확인해 주십시오");
          }
-        if (CommonUtils.isBlank(user.getName())) {
+        if (CommonUtils.isBlank(userDto.getName())) {
             detailMessage.add("사용자의 이름을 입력하십시오");
         }
-        if (CommonUtils.isBlank(user.getUseYn())) {
+        if (CommonUtils.isBlank(userDto.getUseYn())) {
             detailMessage.add("사용자의 사용여부를 입력하십시오");
         }
-        if (!CommonUtils.hasYN(user.getUseYn())) {
+        if (!CommonUtils.hasYN(userDto.getUseYn())) {
             detailMessage.add("사용자의 사용여부 값이 잘못되었습니다.");
         }
         if (!CommonUtils.isEmpty(detailMessage.toString())) {
@@ -83,9 +83,9 @@ public class UserUtils implements Reader<User>, Processor<User>, Writer<User, Us
     }
 
     @Override
-    public ProcessResultDto validateAfterPersist(User user) {
+    public ProcessResultDto validateAfterPersist(UserDto userDto) {
         String detailMessage = null;
-        if (CommonUtils.isEmpty(user) || CommonUtils.isNotFoundData(user.getId())) {
+        if (CommonUtils.isEmpty(userDto) || CommonUtils.isNotFoundData(userDto.getId())) {
             detailMessage = "저장 중 오류가 발생하였습니다.";
             return CommonUtils.createProcessResult(ProcessCode.FAIL, detailMessage);
         }
@@ -93,7 +93,7 @@ public class UserUtils implements Reader<User>, Processor<User>, Writer<User, Us
     }
 
     @Override
-    public User getOneByPrimaryId(Long primaryId) {
+    public UserDto getOneByPrimaryId(Long primaryId) {
         try {
             return userRepository.findById(primaryId).orElseGet(this::empty);
         } catch (Exception e) {
@@ -102,16 +102,16 @@ public class UserUtils implements Reader<User>, Processor<User>, Writer<User, Us
     }
 
     @Override
-    public User write(User user) {
+    public UserDto write(UserDto userDto) {
         try {
-            return userRepository.save(user);
+            return userRepository.save(userDto);
         } catch (Exception e) {
             return this.empty();
         }
     }
 
     @Override
-    public User empty() {
-        return User.builder().id(GlobalConstants.NOT_FOUND_ID).build();
+    public UserDto empty() {
+        return UserDto.builder().id(GlobalConstants.NOT_FOUND_ID).build();
     }
 }

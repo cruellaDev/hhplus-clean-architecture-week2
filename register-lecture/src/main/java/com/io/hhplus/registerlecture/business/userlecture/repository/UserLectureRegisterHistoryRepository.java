@@ -1,9 +1,9 @@
 package com.io.hhplus.registerlecture.business.userlecture.repository;
 
-import com.io.hhplus.registerlecture.business.userlecture.model.UserLectureRegisterHistory;
+import com.io.hhplus.registerlecture.business.userlecture.dto.UserLectureRegisterHistoryDto;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public interface UserLectureRegisterHistoryRepository {
-    UserLectureRegisterHistory save(UserLectureRegisterHistory userLectureRegisterHistoryRequest);
+    UserLectureRegisterHistoryDto save(UserLectureRegisterHistoryDto userLectureRegisterHistoryDtoRequest);
 }

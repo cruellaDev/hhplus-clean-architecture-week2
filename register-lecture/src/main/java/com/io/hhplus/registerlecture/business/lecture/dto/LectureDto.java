@@ -1,5 +1,6 @@
-package com.io.hhplus.registerlecture.business.lecture.model;
+package com.io.hhplus.registerlecture.business.lecture.dto;
 
+import com.io.hhplus.registerlecture.business.lecture.model.LectureStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,7 +12,7 @@ import java.util.Date;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Lecture {
+public class LectureDto {
     private Long id;
     private String name;
     private LectureStatus status;

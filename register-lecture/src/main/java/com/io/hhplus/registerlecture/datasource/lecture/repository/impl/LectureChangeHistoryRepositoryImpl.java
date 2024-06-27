@@ -1,6 +1,6 @@
 package com.io.hhplus.registerlecture.datasource.lecture.repository.impl;
 
-import com.io.hhplus.registerlecture.business.lecture.model.LectureChangeHistory;
+import com.io.hhplus.registerlecture.business.lecture.dto.LectureChangeHistoryDto;
 import com.io.hhplus.registerlecture.business.lecture.repository.LectureChangeHistoryRepository;
 import com.io.hhplus.registerlecture.datasource.lecture.mapper.LectureChangeHistoryMapper;
 import com.io.hhplus.registerlecture.datasource.lecture.repository.LectureChangeHistoryJpaRepository;
@@ -15,7 +15,7 @@ public class LectureChangeHistoryRepositoryImpl implements LectureChangeHistoryR
     private final LectureChangeHistoryMapper lectureChangeHistoryMapper;
 
     @Override
-    public LectureChangeHistory save(LectureChangeHistory lectureChangeHistory) {
-        return lectureChangeHistoryMapper.toDto(lectureChangeHistoryJpaRepository.save(lectureChangeHistoryMapper.toEntity(lectureChangeHistory)));
+    public LectureChangeHistoryDto save(LectureChangeHistoryDto lectureChangeHistoryDto) {
+        return lectureChangeHistoryMapper.toDto(lectureChangeHistoryJpaRepository.save(lectureChangeHistoryMapper.toEntity(lectureChangeHistoryDto)));
     }
 }
