@@ -42,4 +42,14 @@ public class CommonUtils {
     public static boolean isPositiveLong(Long lNumber) {
         return !isEmpty(lNumber) && lNumber.compareTo(0L) > 0;
     }
+
+    public static void throwExceptionByProcessCode(ProcessCode processCode, String detailMessage) {
+        switch (processCode) {
+            case EMPTY -> throw new NullPointerException(detailMessage);
+            case ILLEGAL_ARGUMENTS -> throw new IllegalArgumentException(detailMessage);
+            case ILLEGAL_STATE -> throw new IllegalStateException(detailMessage);
+            case FAIL -> throw new RuntimeException(detailMessage);
+            default -> {}
+        }
+    }
 }
