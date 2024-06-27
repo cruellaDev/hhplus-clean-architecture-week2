@@ -1,6 +1,7 @@
 package com.io.hhplus.registerlecture.datasource.userlecture.mapper;
 
-import com.io.hhplus.registerlecture.business.userlecture.model.UserLectureRegister;
+import com.io.hhplus.registerlecture.business.userlecture.dto.UserLectureRegisterDto;
+import com.io.hhplus.registerlecture.datasource.userlecture.model.UserLectureRegister;
 import com.io.hhplus.registerlecture.global.mapper.EntityMapper;
 import org.springframework.stereotype.Component;
 
@@ -9,42 +10,49 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
-public class UserLectureRegisterMapper implements EntityMapper<UserLectureRegister, com.io.hhplus.registerlecture.datasource.userlecture.model.UserLectureRegister> {
+public class UserLectureRegisterMapper implements EntityMapper<UserLectureRegisterDto, UserLectureRegister> {
 
     @Override
-    public UserLectureRegister toDto(com.io.hhplus.registerlecture.datasource.userlecture.model.UserLectureRegister userLectureRegister) {
-        return UserLectureRegister.builder()
+    public UserLectureRegisterDto toDto(UserLectureRegister userLectureRegister) {
+        return UserLectureRegisterDto.builder()
                 .id(userLectureRegister.getId())
                 .userId(userLectureRegister.getUser().getId())
+                .userName(userLectureRegister.getUser().getName())
                 .lectureId(userLectureRegister.getLecture().getId())
+                .lectureName(userLectureRegister.getLecture().getName())
                 .lectureOptionId(userLectureRegister.getLectureOption().getId())
+                .registerBeginAt(userLectureRegister.getLectureOption().getRegisterBeginAt())
+                .registerEndAt(userLectureRegister.getLectureOption().getRegisterEndAt())
+                .capacityLimit(userLectureRegister.getLectureOption().getCapacityLimit())
                 .useYn(userLectureRegister.getUseYn())
+                .createdAt(userLectureRegister.getAuditSection().getCreatedAt())
+                .modifiedAt(userLectureRegister.getAuditSection().getModifiedAt())
                 .build();
     }
 
     @Override
-    public com.io.hhplus.registerlecture.datasource.userlecture.model.UserLectureRegister toEntity(UserLectureRegister userLectureRegister) {
-        return com.io.hhplus.registerlecture.datasource.userlecture.model.UserLectureRegister.builder()
-                .id(userLectureRegister.getId())
-                .user(com.io.hhplus.registerlecture.datasource.user.model.User.builder().id(userLectureRegister.getUserId()).build())
-                .lecture(com.io.hhplus.registerlecture.datasource.lecture.model.Lecture.builder().id(userLectureRegister.getLectureId()).build())
-                .lectureOption(com.io.hhplus.registerlecture.datasource.lecture.model.LectureOption.builder().id(userLectureRegister.getLectureOptionId()).build())
-                .useYn(userLectureRegister.getUseYn())
+    public UserLectureRegister toEntity(UserLectureRegisterDto userLectureRegisterDto) {
+        return UserLectureRegister.builder()
+                .id(userLectureRegisterDto.getId())
+                .user(com.io.hhplus.registerlecture.datasource.user.model.User.builder().id(userLectureRegisterDto.getUserId()).build())
+                .lecture(com.io.hhplus.registerlecture.datasource.lecture.model.Lecture.builder().id(userLectureRegisterDto.getLectureId()).build())
+                .lectureOption(com.io.hhplus.registerlecture.datasource.lecture.model.LectureOption.builder().id(userLectureRegisterDto.getLectureOptionId()).build())
+                .useYn(userLectureRegisterDto.getUseYn())
                 .build();
     }
 
     @Override
-    public List<UserLectureRegister> toDto(List<com.io.hhplus.registerlecture.datasource.userlecture.model.UserLectureRegister> userLectureRegister) {
+    public List<UserLectureRegisterDto> toDto(List<UserLectureRegister> userLectureRegister) {
         return userLectureRegister.stream().map(this::toDto).collect(Collectors.toList());
     }
 
     @Override
-    public List<com.io.hhplus.registerlecture.datasource.userlecture.model.UserLectureRegister> toEntity(List<UserLectureRegister> userLectureRegister) {
-        return userLectureRegister.stream().map(this::toEntity).collect(Collectors.toList());
+    public List<UserLectureRegister> toEntity(List<UserLectureRegisterDto> userLectureRegisterDto) {
+        return userLectureRegisterDto.stream().map(this::toEntity).collect(Collectors.toList());
     }
 
     @Override
-    public Optional<UserLectureRegister> toDto(Optional<com.io.hhplus.registerlecture.datasource.userlecture.model.UserLectureRegister> userLectureRegister) {
+    public Optional<UserLectureRegisterDto> toDto(Optional<UserLectureRegister> userLectureRegister) {
         if (userLectureRegister.isEmpty()) {
             return Optional.empty();
         }
@@ -52,7 +60,7 @@ public class UserLectureRegisterMapper implements EntityMapper<UserLectureRegist
     }
 
     @Override
-    public Optional<com.io.hhplus.registerlecture.datasource.userlecture.model.UserLectureRegister> toEntity(Optional<UserLectureRegister> userLectureRegisterResponse) {
+    public Optional<UserLectureRegister> toEntity(Optional<UserLectureRegisterDto> userLectureRegisterResponse) {
         if (userLectureRegisterResponse.isEmpty()) {
             return Optional.empty();
         }

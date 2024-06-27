@@ -1,4 +1,4 @@
-package com.io.hhplus.registerlecture.business.lecture.model;
+package com.io.hhplus.registerlecture.business.lecture.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,10 +11,13 @@ import java.util.Date;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Lecture {
+public class LectureOptionDto {
     private Long id;
-    private String name;
-    private String status;
+    private Long lectureId;
+    private Date registerBeginAt;
+    private Date registerEndAt;
+    private Integer capacityLimit;
+    private Date lectureDatetime;
     private String useYn;
     private Date createdAt;
     private Date modifiedAt;

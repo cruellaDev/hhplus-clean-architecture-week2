@@ -1,4 +1,4 @@
-package com.io.hhplus.registerlecture.business.user.model;
+package com.io.hhplus.registerlecture.business.user.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,8 +11,8 @@ import java.util.Date;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class User {
-    private long id;
+public class UserDto {
+    private Long id;
     private String name;
     private String useYn;
     private Date createdAt;

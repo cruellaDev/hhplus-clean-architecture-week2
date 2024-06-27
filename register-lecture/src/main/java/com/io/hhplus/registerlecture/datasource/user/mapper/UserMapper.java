@@ -1,6 +1,7 @@
 package com.io.hhplus.registerlecture.datasource.user.mapper;
 
-import com.io.hhplus.registerlecture.business.user.model.User;
+import com.io.hhplus.registerlecture.business.user.dto.UserDto;
+import com.io.hhplus.registerlecture.datasource.user.model.User;
 import com.io.hhplus.registerlecture.global.mapper.EntityMapper;
 import org.springframework.stereotype.Component;
 
@@ -9,37 +10,39 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
-public class UserMapper implements EntityMapper<User, com.io.hhplus.registerlecture.datasource.user.model.User> {
+public class UserMapper implements EntityMapper<UserDto, User> {
     @Override
-    public User toDto(com.io.hhplus.registerlecture.datasource.user.model.User user) {
-        return User.builder()
+    public UserDto toDto(User user) {
+        return UserDto.builder()
                 .id(user.getId())
                 .name(user.getName())
                 .useYn(user.getUseYn())
+                .createdAt(user.getAuditSection().getCreatedAt())
+                .modifiedAt(user.getAuditSection().getModifiedAt())
                 .build();
     }
 
     @Override
-    public com.io.hhplus.registerlecture.datasource.user.model.User toEntity(User userResponse) {
-        return com.io.hhplus.registerlecture.datasource.user.model.User.builder()
-                .id(userResponse.getId())
-                .name(userResponse.getName())
-                .useYn(userResponse.getUseYn())
+    public User toEntity(UserDto userDtoResponse) {
+        return User.builder()
+                .id(userDtoResponse.getId())
+                .name(userDtoResponse.getName())
+                .useYn(userDtoResponse.getUseYn())
                 .build();
     }
 
     @Override
-    public List<User> toDto(List<com.io.hhplus.registerlecture.datasource.user.model.User> users) {
+    public List<UserDto> toDto(List<User> users) {
         return users.stream().map(this::toDto).collect(Collectors.toList());
     }
 
     @Override
-    public List<com.io.hhplus.registerlecture.datasource.user.model.User> toEntity(List<User> userResponses) {
-        return userResponses.stream().map(this::toEntity).collect(Collectors.toList());
+    public List<User> toEntity(List<UserDto> userDtoResponse) {
+        return userDtoResponse.stream().map(this::toEntity).collect(Collectors.toList());
     }
 
     @Override
-    public Optional<User> toDto(Optional<com.io.hhplus.registerlecture.datasource.user.model.User> user) {
+    public Optional<UserDto> toDto(Optional<User> user) {
         if (user.isEmpty()) {
             return Optional.empty();
         }
@@ -47,7 +50,7 @@ public class UserMapper implements EntityMapper<User, com.io.hhplus.registerlect
     }
 
     @Override
-    public Optional<com.io.hhplus.registerlecture.datasource.user.model.User> toEntity(Optional<User> userResponse) {
+    public Optional<User> toEntity(Optional<UserDto> userResponse) {
         if (userResponse.isEmpty()) {
             return Optional.empty();
         }

@@ -1,6 +1,8 @@
 package com.io.hhplus.registerlecture.datasource.lecture.mapper;
 
-import com.io.hhplus.registerlecture.business.lecture.model.Lecture;
+import com.io.hhplus.registerlecture.business.lecture.dto.LectureDto;
+import com.io.hhplus.registerlecture.business.lecture.model.LectureStatus;
+import com.io.hhplus.registerlecture.datasource.lecture.model.Lecture;
 import com.io.hhplus.registerlecture.global.mapper.EntityMapper;
 import org.springframework.stereotype.Component;
 
@@ -9,39 +11,41 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
-public class LectureMapper implements EntityMapper<Lecture, com.io.hhplus.registerlecture.datasource.lecture.model.Lecture> {
+public class LectureMapper implements EntityMapper<LectureDto, Lecture> {
     @Override
-    public Lecture toDto(com.io.hhplus.registerlecture.datasource.lecture.model.Lecture lecture) {
-        return Lecture.builder()
+    public LectureDto toDto(Lecture lecture) {
+        return LectureDto.builder()
                 .id(lecture.getId())
                 .name(lecture.getName())
-                .status(lecture.getStatus())
+                .status(LectureStatus.valueOf(lecture.getStatus()))
                 .useYn(lecture.getUseYn())
+                .createdAt(lecture.getAuditSection().getCreatedAt())
+                .modifiedAt(lecture.getAuditSection().getModifiedAt())
                 .build();
     }
 
     @Override
-    public com.io.hhplus.registerlecture.datasource.lecture.model.Lecture toEntity(Lecture lectureResponse) {
-        return com.io.hhplus.registerlecture.datasource.lecture.model.Lecture.builder()
-                .id(lectureResponse.getId())
-                .name(lectureResponse.getName())
-                .status(lectureResponse.getStatus())
-                .useYn(lectureResponse.getUseYn())
+    public Lecture toEntity(LectureDto lectureDtoResponse) {
+        return Lecture.builder()
+                .id(lectureDtoResponse.getId())
+                .name(lectureDtoResponse.getName())
+                .status(lectureDtoResponse.getStatus().name())
+                .useYn(lectureDtoResponse.getUseYn())
                 .build();
     }
 
     @Override
-    public List<Lecture> toDto(List<com.io.hhplus.registerlecture.datasource.lecture.model.Lecture> lectures) {
+    public List<LectureDto> toDto(List<Lecture> lectures) {
         return lectures.stream().map(this::toDto).collect(Collectors.toList());
     }
 
     @Override
-    public List<com.io.hhplus.registerlecture.datasource.lecture.model.Lecture> toEntity(List<Lecture> lectureResponses) {
-        return lectureResponses.stream().map(this::toEntity).collect(Collectors.toList());
+    public List<Lecture> toEntity(List<LectureDto> lectureDtoResponse) {
+        return lectureDtoResponse.stream().map(this::toEntity).collect(Collectors.toList());
     }
 
     @Override
-    public Optional<Lecture> toDto(Optional<com.io.hhplus.registerlecture.datasource.lecture.model.Lecture> lecture) {
+    public Optional<LectureDto> toDto(Optional<Lecture> lecture) {
         if (lecture.isEmpty()) {
             return Optional.empty();
         }
@@ -49,7 +53,7 @@ public class LectureMapper implements EntityMapper<Lecture, com.io.hhplus.regist
     }
 
     @Override
-    public Optional<com.io.hhplus.registerlecture.datasource.lecture.model.Lecture> toEntity(Optional<Lecture> lectureResponse) {
+    public Optional<Lecture> toEntity(Optional<LectureDto> lectureResponse) {
         if (lectureResponse.isEmpty()) {
             return Optional.empty();
         }

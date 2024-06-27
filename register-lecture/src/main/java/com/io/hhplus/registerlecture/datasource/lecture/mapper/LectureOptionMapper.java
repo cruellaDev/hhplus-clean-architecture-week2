@@ -1,6 +1,8 @@
 package com.io.hhplus.registerlecture.datasource.lecture.mapper;
 
-import com.io.hhplus.registerlecture.business.lecture.model.LectureOption;
+import com.io.hhplus.registerlecture.business.lecture.dto.LectureOptionDto;
+import com.io.hhplus.registerlecture.datasource.lecture.model.Lecture;
+import com.io.hhplus.registerlecture.datasource.lecture.model.LectureOption;
 import com.io.hhplus.registerlecture.global.mapper.EntityMapper;
 import org.springframework.stereotype.Component;
 
@@ -9,11 +11,11 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
-public class LectureOptionMapper implements EntityMapper<LectureOption, com.io.hhplus.registerlecture.datasource.lecture.model.LectureOption> {
+public class LectureOptionMapper implements EntityMapper<LectureOptionDto, LectureOption> {
 
     @Override
-    public LectureOption toDto(com.io.hhplus.registerlecture.datasource.lecture.model.LectureOption lectureOption) {
-        return LectureOption.builder()
+    public LectureOptionDto toDto(LectureOption lectureOption) {
+        return LectureOptionDto.builder()
                 .id(lectureOption.getId())
                 .lectureId(lectureOption.getLecture().getId())
                 .registerBeginAt(lectureOption.getRegisterBeginAt())
@@ -21,35 +23,37 @@ public class LectureOptionMapper implements EntityMapper<LectureOption, com.io.h
                 .lectureDatetime(lectureOption.getLectureDatetime())
                 .capacityLimit(lectureOption.getCapacityLimit())
                 .useYn(lectureOption.getUseYn())
+                .createdAt(lectureOption.getAuditSection().getCreatedAt())
+                .modifiedAt(lectureOption.getAuditSection().getModifiedAt())
                 .build();
     }
 
     @Override
-    public com.io.hhplus.registerlecture.datasource.lecture.model.LectureOption toEntity(LectureOption lectureOption) {
-        return com.io.hhplus.registerlecture.datasource.lecture.model.LectureOption.builder()
-                .id(lectureOption.getId())
-                .lecture(com.io.hhplus.registerlecture.datasource.lecture.model.Lecture.builder()
-                        .id(lectureOption.getLectureId()).build())
-                .registerBeginAt(lectureOption.getRegisterBeginAt())
-                .registerEndAt(lectureOption.getRegisterEndAt())
-                .lectureDatetime(lectureOption.getLectureDatetime())
-                .capacityLimit(lectureOption.getCapacityLimit())
-                .useYn(lectureOption.getUseYn())
+    public LectureOption toEntity(LectureOptionDto lectureOptionDto) {
+        return LectureOption.builder()
+                .id(lectureOptionDto.getId())
+                .lecture(Lecture.builder()
+                        .id(lectureOptionDto.getLectureId()).build())
+                .registerBeginAt(lectureOptionDto.getRegisterBeginAt())
+                .registerEndAt(lectureOptionDto.getRegisterEndAt())
+                .lectureDatetime(lectureOptionDto.getLectureDatetime())
+                .capacityLimit(lectureOptionDto.getCapacityLimit())
+                .useYn(lectureOptionDto.getUseYn())
                 .build();
     }
 
     @Override
-    public List<LectureOption> toDto(List<com.io.hhplus.registerlecture.datasource.lecture.model.LectureOption> lectureOptions) {
+    public List<LectureOptionDto> toDto(List<LectureOption> lectureOptions) {
         return lectureOptions.stream().map(this::toDto).collect(Collectors.toList());
     }
 
     @Override
-    public List<com.io.hhplus.registerlecture.datasource.lecture.model.LectureOption> toEntity(List<LectureOption> lectureOptions) {
-        return lectureOptions.stream().map(this::toEntity).collect(Collectors.toList());
+    public List<LectureOption> toEntity(List<LectureOptionDto> lectureOptionDtos) {
+        return lectureOptionDtos.stream().map(this::toEntity).collect(Collectors.toList());
     }
 
     @Override
-    public Optional<LectureOption> toDto(Optional<com.io.hhplus.registerlecture.datasource.lecture.model.LectureOption> lectureOption) {
+    public Optional<LectureOptionDto> toDto(Optional<LectureOption> lectureOption) {
         if (lectureOption.isEmpty()) {
             return Optional.empty();
         }
@@ -57,7 +61,7 @@ public class LectureOptionMapper implements EntityMapper<LectureOption, com.io.h
     }
 
     @Override
-    public Optional<com.io.hhplus.registerlecture.datasource.lecture.model.LectureOption> toEntity(Optional<LectureOption> lectureOption) {
+    public Optional<LectureOption> toEntity(Optional<LectureOptionDto> lectureOption) {
         if (lectureOption.isEmpty()) {
             return Optional.empty();
         }
