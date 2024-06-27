@@ -46,4 +46,20 @@ public class DateUtils {
             return null;
         }
     }
+
+    public static int compareTo(Date source, Date target) {
+        try {
+            return source.compareTo(target);
+        } catch (Exception e) {
+            return GlobalConstants.INT_WHEN_EXCEPTION;
+        }
+    }
+
+    public static int betweenFromTo(Date source, Date targetFrom, Date targetTo) {
+        try {
+            return source.compareTo(targetFrom) >= 0 && source.compareTo(targetTo) <= 0 ? 1 : 0;
+        } catch (Exception e) {
+            return GlobalConstants.INT_WHEN_EXCEPTION;
+        }
+    }
 }

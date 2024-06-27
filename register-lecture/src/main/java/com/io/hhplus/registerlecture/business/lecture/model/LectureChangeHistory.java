@@ -11,11 +11,16 @@ import java.util.Date;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Lecture {
+public class LectureChangeHistory {
     private Long id;
-    private String name;
+    private Long lectureId;
+    private String lectureName;
+    private Long lectureOptionId;
     private LectureStatus status;
-    private String useYn;
+    private Date registerBeginAt;
+    private Date registerEndAt;
+    private Date lectureDatetime;
+    private Integer capacityLimit;
     private Date createdAt;
     private Date modifiedAt;
 }

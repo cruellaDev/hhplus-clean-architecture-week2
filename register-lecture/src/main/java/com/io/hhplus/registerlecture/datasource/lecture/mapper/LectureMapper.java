@@ -1,6 +1,7 @@
 package com.io.hhplus.registerlecture.datasource.lecture.mapper;
 
 import com.io.hhplus.registerlecture.business.lecture.model.Lecture;
+import com.io.hhplus.registerlecture.business.lecture.model.LectureStatus;
 import com.io.hhplus.registerlecture.global.mapper.EntityMapper;
 import org.springframework.stereotype.Component;
 
@@ -15,7 +16,7 @@ public class LectureMapper implements EntityMapper<Lecture, com.io.hhplus.regist
         return Lecture.builder()
                 .id(lecture.getId())
                 .name(lecture.getName())
-                .status(lecture.getStatus())
+                .status(LectureStatus.valueOf(lecture.getStatus()))
                 .useYn(lecture.getUseYn())
                 .createdAt(lecture.getAuditSection().getCreatedAt())
                 .modifiedAt(lecture.getAuditSection().getModifiedAt())
@@ -27,7 +28,7 @@ public class LectureMapper implements EntityMapper<Lecture, com.io.hhplus.regist
         return com.io.hhplus.registerlecture.datasource.lecture.model.Lecture.builder()
                 .id(lectureResponse.getId())
                 .name(lectureResponse.getName())
-                .status(lectureResponse.getStatus())
+                .status(lectureResponse.getStatus().name())
                 .useYn(lectureResponse.getUseYn())
                 .build();
     }

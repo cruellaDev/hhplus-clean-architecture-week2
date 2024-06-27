@@ -1,6 +1,7 @@
 package com.io.hhplus.registerlecture.datasource.userlecture.mapper;
 
 import com.io.hhplus.registerlecture.business.userlecture.model.UserLectureRegisterHistory;
+import com.io.hhplus.registerlecture.business.userlecture.model.UserLectureRegisterType;
 import com.io.hhplus.registerlecture.global.mapper.EntityMapper;
 import org.springframework.stereotype.Component;
 
@@ -19,7 +20,7 @@ public class UserLectureRegisterHistoryMapper implements EntityMapper<UserLectur
                 .lectureId(userLectureRegisterHistory.getLectureId())
                 .lectureOptionId(userLectureRegisterHistory.getLectureOptionId())
                 .lectureDatetime(userLectureRegisterHistory.getLectureDatetime())
-                .type(userLectureRegisterHistory.getType())
+                .type(UserLectureRegisterType.valueOf(userLectureRegisterHistory.getType()))
                 .createdAt(userLectureRegisterHistory.getAuditSection().getCreatedAt())
                 .modifiedAt(userLectureRegisterHistory.getAuditSection().getModifiedAt())
                 .build();
@@ -34,7 +35,7 @@ public class UserLectureRegisterHistoryMapper implements EntityMapper<UserLectur
                 .lectureId(userLectureRegisterHistory.getLectureId())
                 .lectureOptionId(userLectureRegisterHistory.getLectureOptionId())
                 .lectureDatetime(userLectureRegisterHistory.getLectureDatetime())
-                .type(userLectureRegisterHistory.getType())
+                .type(userLectureRegisterHistory.getType().name())
                 .build();
     }
 

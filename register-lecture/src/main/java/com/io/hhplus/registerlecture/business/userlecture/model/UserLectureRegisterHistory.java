@@ -18,7 +18,7 @@ public class UserLectureRegisterHistory {
     private Long lectureId;
     private Long lectureOptionId;
     private Date lectureDatetime;
-    private String type;
+    private UserLectureRegisterType type;
     private Date createdAt;
     private Date modifiedAt;
 }

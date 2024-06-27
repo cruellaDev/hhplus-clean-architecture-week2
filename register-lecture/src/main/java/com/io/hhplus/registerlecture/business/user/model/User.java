@@ -12,7 +12,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class User {
-    private long id;
+    private Long id;
     private String name;
     private String useYn;
     private Date createdAt;

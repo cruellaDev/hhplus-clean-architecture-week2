@@ -10,7 +10,6 @@ import java.util.Date;
 
 @Getter
 @Setter
-@ToString
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -23,7 +22,7 @@ public class LectureOption implements Auditable {
     @Column(name = "id", unique = true, nullable = false, updatable = false)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "lecture_id")
     Lecture lecture;
 

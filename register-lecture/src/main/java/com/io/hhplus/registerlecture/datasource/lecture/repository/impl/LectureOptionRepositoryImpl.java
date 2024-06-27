@@ -20,4 +20,9 @@ public class LectureOptionRepositoryImpl implements LectureOptionRepository {
     public Optional<LectureOption> findByIdAndLectureId(long lectureOptionId, long lectureId) {
         return lectureOptionMapper.toDto(lectureOptionJpaRepository.findByIdAndLectureId(lectureOptionId, lectureId));
     }
+
+    @Override
+    public LectureOption save(LectureOption lectureOption) {
+        return lectureOptionMapper.toDto(lectureOptionJpaRepository.save(lectureOptionMapper.toEntity(lectureOption)));
+    }
 }

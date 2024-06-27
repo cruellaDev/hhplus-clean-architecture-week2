@@ -8,4 +8,5 @@ import java.util.Optional;
 @Repository
 public interface LectureRepository {
     Optional<Lecture> findById(long lectureId);
+    Lecture save(Lecture lecture);
 }

@@ -5,9 +5,11 @@ import com.io.hhplus.registerlecture.business.user.repository.UserRepository;
 import com.io.hhplus.registerlecture.datasource.user.mapper.UserMapper;
 import com.io.hhplus.registerlecture.datasource.user.repository.UserJpaRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
+@Component
 @RequiredArgsConstructor
 public class UserRepositoryImpl implements UserRepository {
 

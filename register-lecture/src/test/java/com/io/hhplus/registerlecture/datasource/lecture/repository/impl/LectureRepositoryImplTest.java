@@ -2,6 +2,8 @@ package com.io.hhplus.registerlecture.datasource.lecture.repository.impl;
 
 import com.io.hhplus.registerlecture.datasource.lecture.model.Lecture;
 import com.io.hhplus.registerlecture.datasource.lecture.repository.LectureJpaRepository;
+import org.junit.jupiter.api.DisplayNameGeneration;
+import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -18,6 +20,7 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 @ActiveProfiles("test")
 @DataJpaTest
+@DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 class LectureRepositoryImplTest {
 

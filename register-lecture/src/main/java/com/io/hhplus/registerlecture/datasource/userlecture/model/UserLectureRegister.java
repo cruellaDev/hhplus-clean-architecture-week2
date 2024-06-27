@@ -11,7 +11,6 @@ import lombok.*;
 
 @Getter
 @Setter
-@ToString
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -24,15 +23,15 @@ public class UserLectureRegister implements Auditable {
     @Column(name = "id", unique = true, nullable = false, updatable = false)
     private Long id;
 
-    @OneToOne
+    @OneToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToOne
+    @OneToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "lecture_id")
     private Lecture lecture;
 
-    @OneToOne
+    @OneToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "lecture_option_id")
     private LectureOption lectureOption;
 
