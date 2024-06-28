@@ -132,4 +132,5 @@ public class UserLectureRegisterUtils implements Reader<UserLectureRegisterDto>,
     public List<UserLectureRegisterDto> getAllByUserId(Long userId) {
         return userLectureRegisterRepository.findAllByUserIdAndUseYn(userId, "Y");
     }
+
 }

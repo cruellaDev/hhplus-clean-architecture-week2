@@ -9,7 +9,7 @@ public class ProcessResultDto {
     private ProcessCode processCode;
     private String detailMessage;
 
-    private ProcessResultDto() {}
+    public ProcessResultDto() {}
 
     public ProcessResultDto(ProcessCode processCode, String detailMessage) {
         this.processCode = processCode;

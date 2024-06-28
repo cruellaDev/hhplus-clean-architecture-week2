@@ -24,6 +24,7 @@ public class UserLectureRegisterMapper implements EntityMapper<UserLectureRegist
                 .registerBeginAt(userLectureRegister.getLectureOption().getRegisterBeginAt())
                 .registerEndAt(userLectureRegister.getLectureOption().getRegisterEndAt())
                 .capacityLimit(userLectureRegister.getLectureOption().getCapacityLimit())
+                .currentCapacity(userLectureRegister.getCurrentCapacity())
                 .useYn(userLectureRegister.getUseYn())
                 .createdAt(userLectureRegister.getAuditSection().getCreatedAt())
                 .modifiedAt(userLectureRegister.getAuditSection().getModifiedAt())

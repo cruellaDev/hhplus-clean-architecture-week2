@@ -22,6 +22,7 @@ public class UserLectureRegisterDto {
     private Date registerEndAt;
     private Date lectureDatetime;
     private Integer capacityLimit;
+    private Integer currentCapacity;
     private String useYn;
     private Date createdAt;
     private Date modifiedAt;

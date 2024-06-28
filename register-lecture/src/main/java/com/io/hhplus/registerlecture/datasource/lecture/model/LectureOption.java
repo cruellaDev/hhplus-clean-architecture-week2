@@ -5,6 +5,7 @@ import com.io.hhplus.registerlecture.global.audit.entity.AuditSection;
 import com.io.hhplus.registerlecture.global.audit.entity.Auditable;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.Formula;
 
 import java.util.Date;
 
@@ -37,6 +38,9 @@ public class LectureOption implements Auditable {
 
     @Column(name = "capacity_limit", nullable = false)
     private Integer capacityLimit;
+
+    @Formula("(SELECT COUNT(z.userId) FROM user_lecture_register z WHERE z.lectureId = lectureId AND z.lectureOptionId = lectureOptionId AND z.useYn = 'Y')")
+    private Integer currentCapacity;
 
     @Column(name = "useYn", nullable = false, length = 1)
     private String useYn;

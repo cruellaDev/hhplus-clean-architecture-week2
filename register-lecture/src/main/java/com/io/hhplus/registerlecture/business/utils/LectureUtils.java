@@ -19,6 +19,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
+import java.util.List;
 import java.util.StringJoiner;
 
 @Component
@@ -308,5 +309,10 @@ public class LectureUtils implements Reader<LectureDto>, Processor<LectureDto>, 
         } catch (Exception e) {
             return this.emptyHistory();
         }
+    }
+
+    public List<LectureOptionDto> getAllAvailableLecture() {
+        Date sysDate = DateUtils.getSysDate();
+        return lectureOptionRepository.findAllAvailable(sysDate);
     }
 }
