@@ -111,7 +111,7 @@ class LectureOptionRepositoryImplTest {
 
         lectureOptionJpaRepository.save(lectureOption);
 
-        Optional<LectureOption> realLectureOption = lectureOptionJpaRepository.findByIdAndLectureId(lectureOptionId, lectureId);
+        Optional<LectureOption> realLectureOption = lectureOptionJpaRepository.findByIdAndLectureIdWithPessimisticLock(lectureOptionId, lectureId);
 
         assertTrue(realLectureOption.isPresent());
         assertEquals(lectureOptionId, realLectureOption.get().getId());

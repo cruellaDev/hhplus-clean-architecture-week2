@@ -19,6 +19,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
+import java.util.List;
 import java.util.StringJoiner;
 
 @Component
@@ -29,7 +30,7 @@ public class LectureUtils implements Reader<LectureDto>, Processor<LectureDto>, 
     private final LectureOptionRepository lectureOptionRepository;
     private final LectureChangeHistoryRepository lectureChangeHistoryRepository;
 
-    private final UserLectureUtils userLectureUtils;
+    private final UserLectureRegisterUtils userLectureRegisterUtils;
 
     @Override
     public LectureDto getOneByPrimaryId(Long primaryId) {
@@ -206,7 +207,7 @@ public class LectureUtils implements Reader<LectureDto>, Processor<LectureDto>, 
             detailMessage = "수강 정원에 대한 정보를 찾을 수 없습니다.";
             return CommonUtils.createProcessResult(ProcessCode.ILLEGAL_STATE, detailMessage);
         }
-        long lUserLectureRegisterCount = userLectureUtils.getRegisterCount(lectureOptionDto.getLectureId(), lectureOptionDto.getId());
+        long lUserLectureRegisterCount = userLectureRegisterUtils.getUserLectureRegisterCount(lectureOptionDto.getLectureId(), lectureOptionDto.getId());
         if (lUserLectureRegisterCount <= lectureOptionDto.getCapacityLimit().longValue()) {
             detailMessage = "수강 신청 인원이 정원에 도달하였습니다.";
             return CommonUtils.createProcessResult(ProcessCode.ILLEGAL_STATE, detailMessage);
@@ -308,5 +309,10 @@ public class LectureUtils implements Reader<LectureDto>, Processor<LectureDto>, 
         } catch (Exception e) {
             return this.emptyHistory();
         }
+    }
+
+    public List<LectureOptionDto> getAllAvailableLecture() {
+        Date sysDate = DateUtils.getSysDate();
+        return lectureOptionRepository.findAllAvailable(sysDate);
     }
 }

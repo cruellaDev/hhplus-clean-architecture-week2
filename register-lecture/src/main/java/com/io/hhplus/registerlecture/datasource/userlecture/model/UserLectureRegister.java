@@ -8,6 +8,7 @@ import com.io.hhplus.registerlecture.global.audit.entity.AuditSection;
 import com.io.hhplus.registerlecture.global.audit.entity.Auditable;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.Formula;
 
 @Getter
 @Setter
@@ -35,8 +36,12 @@ public class UserLectureRegister implements Auditable {
     @JoinColumn(name = "lecture_option_id")
     private LectureOption lectureOption;
 
+    @Formula("(SELECT COUNT(z.userId) FROM user_lecture_register z WHERE z.lectureId = lectureId AND z.lectureOptionId = lectureOptionId AND z.useYn = 'Y')")
+    private Integer currentCapacity;
+
     @Column(name = "useYn", nullable = false, length = 1)
     private String useYn;
+
 
     @Builder.Default
     @Embedded
